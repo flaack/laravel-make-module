@@ -1,0 +1,31 @@
+{
+    "name": "flaack/laravel-make-module",
+    "type": "library",
+    "license": "MIT",
+    "description": "Provides an artisan make:module command",
+    "authors": [
+        {
+            "name": "Matt J. Sorenson",
+            "email": "mjs@emjayess.rocks"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Flaack\\LaravelMakeModule\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.2",
+        "illuminate/support": "~5.0|~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Flaack\\LaravelMakeModule\\MakeModuleServiceProvider"
+            ]
+        }
+    }
+}
