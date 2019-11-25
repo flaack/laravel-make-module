@@ -10,7 +10,8 @@ This comprises an opinionated way to organize the classes and folders in a *modu
 ## Installation
 * `composer require --dev flaack/laravel-make-module`
 
-## Usage: `php artisan make:module Foo`
+## Usage
+* `php artisan make:module Foo`
 The resulting `Foo`-related classes Would be scaffolded like this:
 ```
 app
