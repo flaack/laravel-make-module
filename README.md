@@ -12,7 +12,8 @@ This comprises an opinionated way to organize the classes and folders in a *modu
 
 ## Usage
 * `php artisan make:module Foo`
-The resulting `Foo`-related classes Would be scaffolded like this:
+
+The resulting `Foo`-related classes will be scaffolded like this:
 ```
 app
 └── Modules
