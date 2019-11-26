@@ -7,19 +7,19 @@ use Illuminate\Support\Str;
 
 class ApiModuleMakeCommand extends Command
 {
-	/**
+    /**
      * The name and signature of the console command.
      *
      * @var string
      */
-	protected $signature = 'make:module {module}';
+    protected $signature = 'make:module {module}';
 
-	/**
+    /**
      * The console command description.
      *
      * @var string
      */
-	protected $description = 'Create a new API module (controller, model, and resource classes)';
+    protected $description = 'Create a new API module (controller, model, and resource classes)';
 
     /**
      * The name of the module (or model / entity)
@@ -27,20 +27,20 @@ class ApiModuleMakeCommand extends Command
      * @var string
      */
     protected $module;
-	
-	/**
+    
+    /**
      * Handle execution of the console command
      *
      * @return mixed
      */
-	public function handle()
-	{
-		$this->module = $this->argument('module');
-		
+    public function handle()
+    {
+        $this->module = $this->argument('module');
+        
         $this->makeApiModel();
         $this->makeApiResources();
         $this->makeApiController();
-	}
+    }
 
     /**
      * Generate Eloquent Model for Api

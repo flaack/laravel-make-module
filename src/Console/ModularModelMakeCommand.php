@@ -11,6 +11,6 @@ use Flaack\LaravelMakeModule\Traits\ApiModuleLayout;
 class ModularModelMakeCommand extends ModelMakeCommand
 {
     use ApiModuleLayout;
-	
-	protected $description = 'Create a 🔥/modularized/ api model in Laravel.';
+
+    protected $description = 'Create a 🔥/modularized/ api model in Laravel.';
 }

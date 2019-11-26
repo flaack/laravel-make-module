@@ -12,5 +12,5 @@ class ModularResourceMakeCommand extends ResourceMakeCommand
 {
     use ApiModuleLayout;
 
-	protected $description = 'Create a 🔥/modularized/ api resource or resource collection in Laravel.';
+    protected $description = 'Create a 🔥/modularized/ api resource or resource collection in Laravel.';
 }
