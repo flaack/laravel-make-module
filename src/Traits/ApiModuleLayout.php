@@ -11,6 +11,6 @@ trait ApiModuleLayout
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return "{$rootNamespace}\Modules\Api";
+        return "{$rootNamespace}\Modules"; # "{$rootNamespace}\ApiModules";
     }
 }

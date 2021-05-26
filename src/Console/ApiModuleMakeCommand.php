@@ -12,7 +12,10 @@ class ApiModuleMakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:module {module}';
+    protected $signature = 'make:module {module}
+        {--flat      : Generate using a flatter organization of files }
+        {--migration : By convention, a DB migration has been included implicitly... make optional? }
+    ';
 
     /**
      * The console command description.
@@ -27,6 +30,13 @@ class ApiModuleMakeCommand extends Command
      * @var string
      */
     protected $module;
+
+    /**
+     * The (optional) options for code generation
+     *
+     * @var array
+     */
+    protected $options;
     
     /**
      * Handle execution of the console command
@@ -35,7 +45,16 @@ class ApiModuleMakeCommand extends Command
      */
     public function handle()
     {
+        $this->options = $this->options();
         $this->module = $this->argument('module');
+
+        /**
+         * @todo : if I can inject the $this->app instance here,
+         * then I can dynamically override the commands, instead
+         * of registering them (non-hostile takeover).
+         */
+
+        #dd ( $this->app->runningInConsole() );
         
         $this->makeApiModel();
         $this->makeApiResources();
@@ -47,9 +66,13 @@ class ApiModuleMakeCommand extends Command
      */
     public function makeApiModel()
     {
+        $migrationYN = $this->options['migration'];
+
+        $modelClass = "{$this->module}/{$this->module}";
+
         $this->call('make:model', [
-            'name' => "{$this->module}/Model/{$this->module}",
-            '--migration' => true,
+            'name' => $modelClass,
+            '--migration' => $migrationYN,
         ]);
     }
 
@@ -61,14 +84,29 @@ class ApiModuleMakeCommand extends Command
      */
     public function makeApiResources()
     {
+        $modulePlural = Str::plural($this->module);
+
+        $resourceClass = $this->options['flat']
+            # flatter (simpler) file layout:
+            ? "{$this->module}/{$this->module}ApiResource"
+            # original file layout:
+            : "{$this->module}/Resources/{$this->module}"
+        ;
+
+        $collectionClass = $this->options['flat']
+            # flatter (simpler) file layout:
+            #? "{$this->module}/{$module_plural}Json"
+            ? "{$this->module}/{$this->module}ApiCollection"
+            # original file layout:
+            : "{$this->module}/Resources/{$modulePlural}"
+        ;
+
         $this->call('make:resource', [
-            'name' => "{$this->module}/Resource/{$this->module}"
+            'name' => $resourceClass
         ]);
 
-        $module_plural = Str::plural($this->module);
-
         $this->call('make:resource', [
-            'name' => "{$this->module}/Resource/{$module_plural}",
+            'name' => $collectionClass,
             '--collection' => true,
         ]);
     }
@@ -78,8 +116,10 @@ class ApiModuleMakeCommand extends Command
      */
     public function makeApiController()
     {
+        $controllerClass = "{$this->module}/{$this->module}Controller";
+
         $this->call('make:controller', [
-            'name'  => "{$this->module}/{$this->module}Controller",
+            'name'  => $controllerClass,
             '--api' => true,
         ]);
     }
